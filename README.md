@@ -3,6 +3,7 @@
 Helps you to live test your regex from your code.
 ## Demo
 
+![Demo](https://github.com/Djancyp/nvim-plugin-demo/blob/main/regex.nvim/images/demo.gif)
 ## Installation
 
 ```lua
