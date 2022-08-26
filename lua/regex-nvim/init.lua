@@ -18,7 +18,11 @@ M.list_buffer = nil
 
 M.list_name = nil
 M.toggle = false
-M.Setup = function(opts)
+M.Setup = function(config)
+    if config and config.paths then
+        opts.paths = vim.tbl_deep_extend("force", opts.paths, config.paths or {})
+    end
+
     api.nvim_create_user_command("RegexHelper", function()
         M.Togggle()
     end, {})
