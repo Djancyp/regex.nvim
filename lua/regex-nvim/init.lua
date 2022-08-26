@@ -4,7 +4,7 @@ require('split')
 local popup = require("plenary.popup")
 local opts = {
     paths = {
-        email = "~/Documents/nvim-plugins/regex-validator/scripts/emails",
+        Empty = ""
     }
 }
 local augroup = vim.api.nvim_create_augroup("Regex-nvim", {})
@@ -78,7 +78,7 @@ end
 function List_Selector(lists)
     M.main_buf = api.nvim_create_buf(false, true)
     local borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
-    local win_id, win = popup.create(M.main_buf, {
+    local win_id, _ = popup.create(M.main_buf, {
         title = "Regex - Select from the list",
         highlight = "Regex",
         line = math.floor(((vim.o.lines - 5) / 2) - 1),
@@ -108,14 +108,27 @@ Get_paths = function()
 end
 M.Open = function()
     local text = api.nvim_get_current_line()
-    local path = opts.paths[text]
+    local path = ""
+    if text ~= "Empty" then
+        path = opts.paths[text]
+    end
     local buf = api.nvim_create_buf(false, false)
     M.list_buffer = buf
     vim.cmd "vsplit"
     vim.cmd(string.format("buffer %d", buf))
-    local cmd = string.format("cat %s", path)
-    local full_list = vim.fn.system(cmd)
-    M.table_list = full_list:split("\n")
+    if text ~= "Empty" then
+        local cmd = string.format("cat %s", path)
+        local full_list = vim.fn.system(cmd)
+        M.table_list = full_list:split("\n")
+    else
+        M.table_list = {
+            "Example list:",
+            "email@email.com",
+            "27-03-1989",
+            "Hello World"
+        }
+        api.nvim_buf_set_lines(buf, 0, #(M.table_list), false, M.table_list)
+    end
     api.nvim_buf_set_lines(buf, 0, #(M.table_list), false, M.table_list)
 
 
