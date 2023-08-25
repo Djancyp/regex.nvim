@@ -10,9 +10,14 @@ Helps you to live test your regex from your code.
 use "Djancyp/regex.nvim"
 ```
 ```lua
-require('regex-nvim').Setup()
+require('regex-nvim').setup()
 ```
+
+In addition, the plugin requires [ripgrep](https://github.com/BurntSushi/ripgrep) being installed.
+
 ## Usage
+Under the hood, the plugin uses `rg --pcre2` to evaluate the regex for compatibility with PCRE.
+
 ### Toggle command
 You need to run this command while your cursor is on the regex. Please check the demo.
 ```vim
@@ -20,14 +25,14 @@ You need to run this command while your cursor is on the regex. Please check the
 ```
 ### Set Multiple Paths for World-lists 
 ```lua
-require('regex-nvim').Setup({
-  paths:{
+require('regex-nvim').setup({
+  paths = {
     emails = "<path to world-list>"
     dates = "<path to world-list>"
   }
 })
 ```
-### Mods
+### Modes
 Ones you attach the regex helper.
 #### Normal Mode
 you can switch in between different regex line.
