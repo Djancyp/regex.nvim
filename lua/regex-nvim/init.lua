@@ -205,7 +205,8 @@ function M.highlight()
     for k, v in pairs(M.table_list) do
 
         if v ~= "" then
-            local regex_cmd = string.format("echo '%s' | grep -E  %s", v, M.regex)
+            local escapedReg = M.regex:gsub("'", "\\'")
+            local regex_cmd = string.format("echo '%s' | rg --pcre2 '%s'", v, escapedReg)
             vim.fn.jobstart(regex_cmd, {
                 on_stdout = function(_, data)
                     for i, line in ipairs(data) do
