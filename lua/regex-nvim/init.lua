@@ -1,6 +1,6 @@
 local M = {}
 local api = vim.api
-require('split')
+require('regex-nvim.split')
 local popup = require("plenary.popup")
 local opts = {
     paths = {
