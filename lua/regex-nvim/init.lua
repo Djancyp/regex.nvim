@@ -18,7 +18,7 @@ M.list_buffer = nil
 
 M.list_name = nil
 M.toggle = false
-M.Setup = function(config)
+M.setup = function(config)
     if config and config.paths then
         opts.paths = vim.tbl_deep_extend("force", opts.paths, config.paths or {})
     end
