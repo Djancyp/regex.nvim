@@ -1,6 +1,6 @@
 local M = {}
 local api = vim.api
-require('split')
+require('regex-nvim.split')
 local popup = require("plenary.popup")
 local opts = {
     paths = {
@@ -18,7 +18,7 @@ M.list_buffer = nil
 
 M.list_name = nil
 M.toggle = false
-M.Setup = function(config)
+M.setup = function(config)
     if config and config.paths then
         opts.paths = vim.tbl_deep_extend("force", opts.paths, config.paths or {})
     end
@@ -205,7 +205,7 @@ function M.highlight()
     for k, v in pairs(M.table_list) do
 
         if v ~= "" then
-            local regex_cmd = string.format("echo '%s' | grep -E  %s", v, M.regex)
+            local regex_cmd = string.format("echo '%s' | command rg --pcre2 %s", v, M.regex)
             vim.fn.jobstart(regex_cmd, {
                 on_stdout = function(_, data)
                     for i, line in ipairs(data) do
